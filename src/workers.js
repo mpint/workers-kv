@@ -9,10 +9,17 @@ const WorkersKVREST = function({
   const host = 'api.cloudflare.com';
   const basePath = `/client/v4/accounts/${cfAccountId}/storage/kv/namespaces`;
 
-  const headers = {
-    'X-Auth-Email': cfEmail,
-    'X-Auth-Key': cfAuthKey,
-  };
+  let headers;
+  if (cfEmail == "token") {
+    headers = {
+      'Authorization': "Bearer " + cfAuthKey,
+    };
+  } else {
+    headers = {
+      'X-Auth-Email': cfEmail,
+      'X-Auth-Key': cfAuthKey,
+    };
+  }
   const baseInputs = { host, basePath, namespaceId, headers };
 
   const API = {};
