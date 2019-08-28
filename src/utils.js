@@ -29,7 +29,10 @@ export const responseBodyResolver = resolve => (headers, data) => {
   const contentType = headers['content-type'];
   if (contentType.includes('text/plain')) {
     resolve(data);
-  } else if (contentType.includes('application/json')) {
+  } else if (
+    contentType.includes('application/json') ||
+    contentType.includes('application/octet-stream')
+  ) {
     resolve(JSON.parse(data));
   } else {
     throw new Error(
